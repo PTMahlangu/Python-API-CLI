@@ -13,6 +13,10 @@ sys.tracebacklimit = 0
 USERS_URL = 'http://sam-user-activity.eu-west-1.elasticbeanstalk.com/'
 
 def getData():
+    """
+    Get perfom get  request
+    return response
+    """
     response_API = requests.get(USERS_URL)
 
     if(response_API.ok):
@@ -22,7 +26,10 @@ def getData():
 
 
 def formatData(response):
-
+    """
+    format data to json list
+    return date , number of users
+    """
     if(response == None):
             raise Exception(f"{Fore.RED}Server Error!")
     try:
@@ -40,6 +47,10 @@ def formatData(response):
 
 
 def plotData(labels,data):
+    """
+    Get plot data on at the terminal
+    return none
+    """
     len_categories = 1
     args = {'filename': None, 'title': None, 'width': 50,
             'format': '{:<5.2f}', 'suffix': '', 'no_labels': False,
@@ -58,7 +69,10 @@ def plotData(labels,data):
 
 
 def filterData(data,labels,arguments,dateRange=[]):
-    # Filter data between two dates
+    """
+    Filter data between two dates
+    return filtered data
+    """
     try:
         df = pd.DataFrame({'users': data,'date': labels})
         # Convert the date to datetime64
