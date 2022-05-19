@@ -14,10 +14,8 @@ pip3 install -r requirements.txt
 
 ## To Run
 ```bash
-`python3 app.py`
+python3 app.py
 ```
-* `python3 word_processor.py`
-* follow the input prompts to get the desired output
 
 ## To Test
 
