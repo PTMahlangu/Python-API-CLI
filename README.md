@@ -11,7 +11,7 @@ pip3 install -r requirements.txt
 ```
 
 ## To Run
-If there is no flags/argiment passed all the data will be used 
+If there is no flags/command arguments passed all the data will be used 
 ```bash
 python3 app.py 2022-01-11 2022-01-14
 ```
