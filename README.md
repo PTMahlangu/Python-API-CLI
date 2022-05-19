@@ -1,8 +1,6 @@
-# Problem - Word Processor
+# 
 
-* Modify `word_processor.py` to solve the problem as stated in the topic content.
-* You can run the program using the instructions in *To Run* below.
-* You can test technical correctness by running the unit tests as in the section *To Test* below.
+* Python CLI program that filter API data by Start date and end date:
 
 ## Installation
 
@@ -14,14 +12,20 @@ pip3 install -r requirements.txt
 
 ## To Run
 ```bash
-python3 app.py
+python3 app.py 2022-01-11 2022-01-14
 ```
+
+## Output example
+![](image.png)
 
 ## To Test
 
 * To run logic the unittests: 
 ```bash
-`python3 -m unittest unit_test/test_logic.py`
+python3 -m unittest unit_test/test_logic.py
 ```
 * To run api the unittests: `python3 -m unittest unit_test/test_api.py`
+```bash
+python3 -m unittest unit_test/test_api.py
+```
 
