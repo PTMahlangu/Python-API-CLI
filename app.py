@@ -57,24 +57,26 @@ def plotData(labels,data):
 
 
 
-def filterData(data,labels,dateRange):
-
-    df = pd.DataFrame({'users': data,'date': labels})
-    # Convert the date to datetime64
-    df['date'] = pd.to_datetime(df['date'], format='%d-%m-%Y')
-
-    maxDate = datetime.datetime(int(labels[-1].split("-")[2]), int(labels[-1].split("-")[1]), int(labels[-1].split("-")[0]))
-    minDate = datetime.datetime(int(labels[0].split("-")[2]), int(labels[-1].split("-")[1]), int(labels[0].split("-")[0]))
-    queryMax = datetime.datetime(int(dateRange[1].split("-")[0]), int(dateRange[1].split("-")[1]), int(dateRange[1].split("-")[2]))
-    queryMin = datetime.datetime(int(dateRange[0].split("-")[0]), int(dateRange[0].split("-")[1]), int(dateRange[1].split("-")[2]))
-
+def filterData(data,labels,arguments,dateRange=[]):
     # Filter data between two dates
     try:
-        if((maxDate < queryMax) or (minDate > queryMin )):
-            raise Exception(f"{Fore.RED}Date out of range!\n min date: {labels[0]}\n max date: {labels[-1]}\n Choose date between min and max.")
+        df = pd.DataFrame({'users': data,'date': labels})
+        # Convert the date to datetime64
+        df['date'] = pd.to_datetime(df['date'], format='%d-%m-%Y')
 
-        filtered_df = df.loc[(df['date'] >= dateRange[0])
-                            & (df['date'] <= dateRange[1])]
+        maxDate = datetime.datetime(int(labels[-1].split("-")[2]), int(labels[-1].split("-")[1]), int(labels[-1].split("-")[0]))
+        minDate = datetime.datetime(int(labels[0].split("-")[2]), int(labels[-1].split("-")[1]), int(labels[0].split("-")[0]))
+        if (arguments):
+            queryMax = datetime.datetime(int(dateRange[1].split("-")[0]), int(dateRange[1].split("-")[1]), int(dateRange[1].split("-")[2]))
+            queryMin = datetime.datetime(int(dateRange[0].split("-")[0]), int(dateRange[0].split("-")[1]), int(dateRange[1].split("-")[2]))
+
+            if((maxDate < queryMax) or (minDate > queryMin )):
+                raise Exception(f"{Fore.RED}Date out of range!\n min date: {labels[0]}\n max date: {labels[-1]}\n Choose date between min and max.")
+                
+            filtered_df = df.loc[(df['date'] >= dateRange[0])
+                                & (df['date'] <= dateRange[1])]
+        else:
+             filtered_df = df['date']          
 
         return  [labels[i] for i in filtered_df.index],[data[i] for i in filtered_df.index]
     except Exception as e:
@@ -84,8 +86,13 @@ def filterData(data,labels,dateRange):
 
 if __name__ == "__main__":
 
-    datesRange = sys.argv[1:3]
+    if(len(sys.argv) >= 2):
+        datesRange = sys.argv[1:3]
+        labels , data = formatData(getData())
+        filteredLabels, filteredData= filterData(data,labels,True,datesRange)
+        plotData(filteredLabels, filteredData)
+    else:
+        labels , data = formatData(getData())
+        filteredLabels, filteredData= filterData(data,labels,False)
+        plotData(filteredLabels, filteredData)
 
-    labels , data = formatData(getData())
-    filteredLabels, filteredData= filterData(data,labels,datesRange)
-    plotData(filteredLabels, filteredData)
