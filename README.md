@@ -19,6 +19,9 @@ python3 app.py
 
 ## To Test
 
-* To run logic the unittests: `python3 -m unittest unit_test/test_logic.py`
+* To run logic the unittests: 
+```bash
+`python3 -m unittest unit_test/test_logic.py`
+```
 * To run api the unittests: `python3 -m unittest unit_test/test_api.py`
 
